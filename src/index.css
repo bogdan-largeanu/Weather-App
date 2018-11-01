@@ -12,3 +12,34 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.flex-container-day {
+  display: flex;
+  background: #d8cc63;
+  flex-direction: row;
+  justify-content: center;
+  margin: 0px auto;
+  padding: 10px;
+}
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 5px;
+
+
+}
+.flex-container-temp {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  
+}
+
+.flex-container > div {
+  background-color: #e6e6e6;
+  margin: 0px;
+  padding: 0px;
+  font-size: 14px;
+}
+
