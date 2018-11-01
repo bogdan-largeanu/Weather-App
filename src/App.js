@@ -19,7 +19,7 @@ function matchDay(firstDayEntry) {
     "Thursday",
     "Friday",
     "Saturday",
-    "Sunday"
+    "Sunday",
   ];
   let hour = moment(firstDayEntry).format("HH:mm:ss");
   let dateInput = moment(firstDayEntry).format("dddd");
