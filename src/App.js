@@ -6,11 +6,20 @@ import axios from "axios";
 import moment from "moment";
 import "./App.css";
 
+// JS: 
+
+/* JS:
+ * Functions such as matchDay and addDates could be added to their own files,
+ * like components. This way, they can be imported into files where they're needed,
+ * and can have their own indidivual test files. Plus, it helps on file size/length.
+ */
+
 /*
 take api date of first entry and return a list with 
   {hour: nameOfDay: date: }
  for the next 5 days
 */
+
 function matchDay(firstDayEntry) {
   let daysOfWeek = [
     "Monday",
@@ -36,28 +45,44 @@ function matchDay(firstDayEntry) {
   addDates(weatherDays, firstDayEntry);
   return weatherDays;
 }
+
 /*
 Add to the list of object days, their matching calendar date
 */
 
+/* JS:
+ * It's usually best practice to create and manipulate a copy of function
+ * parameters such as `weatherDays` here, rather than manipulating the parameter
+ * directly.
+ * e.g. let  
+ */
+
+ /* JS:
+ * This function could probably be simplified a lot using the map method,
+ * especially as it would help with making sure the number of weather days can be any length
+ * and not restricted to `< 5`
+ */
+
 function addDates(weatherDays, firstDayEntry) {
   //To-DO: increase day by 1
   let newDate;
-  let dateFormated;
+  let dateFormatted;
+  // JS: if a variable isn't used, you may as well delete it
   let dateNow = moment().format("YYYY-MM-D");
   let dateInput = firstDayEntry;
   for (let i = 0; i < 5; i++) {
     newDate = moment(dateInput).add(i, "d");
-    dateFormated = newDate.format("YYYY-MM-DD");
-    weatherDays[i] = { date: dateFormated, ...weatherDays[i] };
+    dateFormatted = newDate.format("YYYY-MM-DD");
+    weatherDays[i] = { date: dateFormatted, ...weatherDays[i] };
   }
 
   return weatherDays;
 }
+
 /*
 Add to the list of object days, their matching temperatures and descriptions
 */
-function daysMaped(apiData, weatherDays) {
+function daysMapped(apiData, weatherDays) {
   weatherDays.map(day => {
     apiData.list.map(apiDay => {
       const matchingDate = day.date + " " + day.hour;
@@ -106,6 +131,12 @@ function Card(props) {
   );
 }
 
+/* JS:
+ * A standard pattern for React projects is to have a folder called components, which
+ * then contain individual files containing components like this. Create a file
+ * called `RowCards.js`, move the RowCards function into it and use `export default` to
+ * make the function available. Then, in files where you use this component, import the file.
+ */
 function RowCards(props) {
   const apiData = Object.assign({}, props.data.api);
   let finalDataWeather =[{},{},{},{},{}];
@@ -113,12 +144,12 @@ function RowCards(props) {
   if (typeof apiData.city != "undefined") {
     //save date and match with day of the week
     let weatherDays = matchDay(apiData.list[0].dt_txt);
-    //use same hour for each day to get data -> insdie call method to save variables for temperatures
-    finalDataWeather = daysMaped(apiData, weatherDays);
+    //use same hour for each day to get data -> inside call method to save variables for temperatures
+    finalDataWeather = daysMapped(apiData, weatherDays);
   }
   return (
     <div className="flex-container-day">
-    {finalDataWeather.map( day=> <Card data={props.data} weather={day} />)}
+      {finalDataWeather.map( day=> <Card data={props.data} weather={day} />)}
     </div>
   );
 }
@@ -153,5 +184,5 @@ class App extends Component {
   }
 }
 
-export { matchDay, daysMaped };
+export { matchDay, daysMapped };
 export default App;
