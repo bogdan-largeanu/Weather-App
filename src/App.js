@@ -5,15 +5,6 @@ import image from "./image.svg";
 import axios from "axios";
 import moment from "moment";
 import "./App.css";
-
-// JS: 
-
-/* JS:
- * Functions such as matchDay and addDates could be added to their own files,
- * like components. This way, they can be imported into files where they're needed,
- * and can have their own indidivual test files. Plus, it helps on file size/length.
- */
-
 /*
 take api date of first entry and return a list with 
   {hour: nameOfDay: date: }
@@ -50,24 +41,10 @@ function matchDay(firstDayEntry) {
 Add to the list of object days, their matching calendar date
 */
 
-/* JS:
- * It's usually best practice to create and manipulate a copy of function
- * parameters such as `weatherDays` here, rather than manipulating the parameter
- * directly.
- * e.g. let  
- */
-
- /* JS:
- * This function could probably be simplified a lot using the map method,
- * especially as it would help with making sure the number of weather days can be any length
- * and not restricted to `< 5`
- */
-
 function addDates(weatherDays, firstDayEntry) {
   //To-DO: increase day by 1
   let newDate;
   let dateFormatted;
-  // JS: if a variable isn't used, you may as well delete it
   let dateNow = moment().format("YYYY-MM-D");
   let dateInput = firstDayEntry;
   for (let i = 0; i < 5; i++) {
@@ -131,12 +108,6 @@ function Card(props) {
   );
 }
 
-/* JS:
- * A standard pattern for React projects is to have a folder called components, which
- * then contain individual files containing components like this. Create a file
- * called `RowCards.js`, move the RowCards function into it and use `export default` to
- * make the function available. Then, in files where you use this component, import the file.
- */
 function RowCards(props) {
   const apiData = Object.assign({}, props.data.api);
   let finalDataWeather =[{},{},{},{},{}];
